@@ -23,6 +23,12 @@ const tabelNote = document.getElementById("tabel-note");
 const sectiuneNote = document.getElementById("note-elev-wrapper");
 const butonAscundereNote = document.getElementById("ascunde-note");
 const containerNoteELev = document.getElementById("note-elev-wrapper");
+const butonSortareEleviAscendent = document.getElementById(
+  "sortare-ascendent-btn"
+);
+const butonSortareEleviDescendent = document.getElementById(
+  "sortare-descendent-btn"
+);
 
 afisareTabel(elevi);
 butonAdaugareElev.addEventListener("click", adaugareElevInTabel);
@@ -31,6 +37,28 @@ containerNoteElev.addEventListener("keydown", addNoteOnPressingEnterKey);
 tabelElevi.addEventListener("click", trateazaActiuniTabelElevi);
 tabelNote.addEventListener("click", trateazaActiuniTabelNote);
 butonAscundereNote.addEventListener("click", ascundeSectiuneNote);
+butonSortareEleviAscendent.addEventListener("click", function () {
+  sortTable(true);
+});
+butonSortareEleviDescendent.addEventListener("click", function () {
+  sortTable(false);
+});
+
+function sortTable(ascending) {
+  const table = document
+    .getElementById("tabel-elevi")
+    .getElementsByTagName("tbody")[0];
+  const rows = Array.from(table.rows);
+
+  rows.sort((a, b) => {
+    const mediaA = parseFloat(a.cells[1].innerText);
+    const mediaB = parseFloat(b.cells[1].innerText);
+
+    return ascending ? mediaA - mediaB : mediaB - mediaA;
+  });
+
+  rows.forEach((row) => table.appendChild(row));
+}
 
 function addElevOnPressingEnterKey(e) {
   if (e.key === "Enter") {
