@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalog de note</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Catalog de note</h2>
+      </div>
+      <div id="lista-elevi-wrapper">
+        <h1>Lista elevi</h1>
+        <div>
+          <label for="nume-elev"></label>
+          <input type="text" name="" id="nume-elev-input" />
+            <button id="adauga-elev-btn">Adauga</button>
+        </div>
+    <div class="add-button">
+      <button id="sortare-ascendent-btn">Sortare elevi &#8593;</button>
+      <button id="sortare-descendent-btn">Sortare elevi &#8595;</button>
+    </div>
+    <ul id="eleviList"></ul>
+    </div>
+    <table id="tabel-elevi">
+      <thead>
+        <th>Nume si Prenume</th>
+        <th>Medie</th>
+        <th></th>
+        <tbody>
+        </tbody>
+      </thead>
+    </table>
+    <div id="note-elev-wrapper" class='hide'>
+      <button id="ascunde-note">Ascunde notele</button>
+      <h2 id="numeElev">Numele elevului</h2>
+      <div>
+        <label for="nota"></label>
+        <input type="number" name="" id="newGrade" placeholder="Adauga nota">
+        <button type="submit" id="adauga-nota-btn">Adauga</button>
+        <table id="tabel-note">
+          <thead>
+            <th>Nota</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
