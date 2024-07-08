@@ -26,9 +26,24 @@ const containerNoteELev = document.getElementById("note-elev-wrapper");
 
 afisareTabel(elevi);
 butonAdaugareElev.addEventListener("click", adaugareElevInTabel);
+inputNumeElev.addEventListener("keydown", addElevOnPressingEnterKey);
+containerNoteElev.addEventListener("keydown", addNoteOnPressingEnterKey);
 tabelElevi.addEventListener("click", trateazaActiuniTabelElevi);
 tabelNote.addEventListener("click", trateazaActiuniTabelNote);
 butonAscundereNote.addEventListener("click", ascundeSectiuneNote);
+
+function addElevOnPressingEnterKey(e) {
+  if (e.key === "Enter") {
+    adaugareElevInTabel();
+  }
+}
+
+function addNoteOnPressingEnterKey(e) {
+  if (e.key === "Enter") {
+    console.log("se apasa Enter");
+    // adaugaNote();
+  }
+}
 
 function adaugareElevInTabel() {
   const numeElev = inputNumeElev.value;
