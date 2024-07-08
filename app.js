@@ -19,12 +19,15 @@ const elevi = [
 const inputNumeElev = document.getElementById("nume-elev-input");
 const butonAdaugareElev = document.getElementById("adauga-elev-btn");
 const tabelElevi = document.getElementById("tabel-elevi");
+const tabelNote = document.getElementById("tabel-note");
 const sectiuneNote = document.getElementById("note-elev-wrapper");
 const butonAscundereNote = document.getElementById("ascunde-note");
+const containerNoteELev = document.getElementById("note-elev-wrapper");
 
 afisareTabel(elevi);
 butonAdaugareElev.addEventListener("click", adaugareElevInTabel);
-tabelElevi.addEventListener("click", trateazaActiuniTabel);
+tabelElevi.addEventListener("click", trateazaActiuniTabelElevi);
+tabelNote.addEventListener("click", trateazaActiuniTabelNote);
 butonAscundereNote.addEventListener("click", ascundeSectiuneNote);
 
 function adaugareElevInTabel() {
@@ -43,7 +46,7 @@ function afisareTabel(elevi) {
 
   for (let i = 0; i <= elevi.length - 1; i++) {
     tableBody.innerHTML += `
-    <tr>
+    <tr id='elev_${i}'>
         <td>${elevi[i].nume}</td>
         <td>${elevi[i].medie.toFixed(2)}</td>
         <td><button class="vezi-note">Vezi Notele</button></td>
@@ -53,12 +56,54 @@ function afisareTabel(elevi) {
   }
 }
 
-function trateazaActiuniTabel(e) {
+function trateazaActiuniTabelElevi(e) {
   if (e.target.classList.contains("vezi-note")) {
     sectiuneNote.classList.remove("hide");
+    const id = e.target.parentElement.parentElement.id;
+    const index = id.split("_")[1];
+    afiseazaNote(elevi[index]);
+  } else if (e.target.classList.contains("sterge-elev")) {
+    // e.target.parentElement.parentElement.remove();
+    const id = e.target.parentElement.parentElement.id;
+    const index = id.split("_")[1];
+
+    elevi.splice(index, 1);
+    afisareTabel(elevi);
+  }
+}
+
+function trateazaActiuniTabelNote(e) {
+  if (e.target.classList.contains("sterge-nota")) {
+    const idNota = e.target.parentElement.parentElement.id;
+    const indexNota = idNota.split("_")[1];
+
+    const idTableBody = e.target.parentElement.parentElement.parentElement.id;
+    const indexElev = idTableBody.split("_")[1];
+
+    elevi[indexElev].note.splice(indexNota, 1);
+    afiseazaNote(elevi[indexElev]);
   }
 }
 
 function ascundeSectiuneNote() {
   sectiuneNote.classList.add("hide");
+}
+
+function afiseazaNote(elev) {
+  const index = elevi.indexOf(elev);
+  const h2NumeElev = containerNoteELev.querySelector("h2");
+  h2NumeElev.innerHTML = elev.nume;
+  const tableBody = tabelNote.querySelector("tbody");
+
+  tableBody.innerHTML = "";
+  for (let i = 0; i <= elev.note.length - 1; i++) {
+    tableBody.id = `elev_${index}`;
+    // template literals
+    tableBody.innerHTML += `
+    <tr id='nota_${i}'>
+        <td>${elev.note[i].toFixed(2)}</td>
+        <td><button class="sterge-nota">X</button></td>
+        </tr>
+    `;
+  }
 }
